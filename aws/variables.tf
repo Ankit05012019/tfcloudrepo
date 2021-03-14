@@ -1,6 +1,7 @@
   
 variable filename {
-
+ 
+ default = test
  type = string 
 
 }
