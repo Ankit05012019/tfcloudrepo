@@ -1,7 +1,7 @@
   
 variable filename {
  
- default = test
+ default = "test"
  type = string 
 
 }
