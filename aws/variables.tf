@@ -8,6 +8,7 @@ variable filename {
 
 variable "test" {
 
-default = ["one", "two", "three"]
+default = ["oneone", "twotwo", "three"]
+
 
 }

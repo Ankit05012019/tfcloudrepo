@@ -1,3 +1,13 @@
+terraform {
+  backend "remote" {
+    organization = "scaleworx"
+
+    workspaces {
+      name = "tfcloudrepo"
+    }
+  }
+}
+
 
 provider local {}
 
