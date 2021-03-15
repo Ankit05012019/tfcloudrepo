@@ -19,7 +19,7 @@ provider local {}
      }
 } */
 
-resource "local_file" "testfiles" {
+resource "local_file" "testfiles2" {
 
  for_each = toset(var.test)
  filename = each.value
@@ -27,7 +27,7 @@ resource "local_file" "testfiles" {
   
 }
 
-output "testfile" {
+output "testfile2" {
 
      value = local_file.testfiles
   
