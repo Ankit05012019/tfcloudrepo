@@ -29,6 +29,6 @@ resource "local_file" "this" {
 
 output "testfile" {
 
-     value = local_file.testfiles
+     value = local_file.this
   
 }
