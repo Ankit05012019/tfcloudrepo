@@ -22,6 +22,10 @@ resource "aws_s3_bucket" "mybucket" {
     Environment = var.environment_name
   }
 
+  versioning {
+    enabled = true
+  }
+}
 
 resource "aws_s3_bucket_policy" "bucket_policy" {
   bucket = aws_s3_bucket.mybucket.id
@@ -47,11 +51,6 @@ resource "aws_s3_bucket_policy" "bucket_policy" {
       },
     ]
   })
-}
-
-  versioning {
-    enabled = true
-  }
 }
 
 
