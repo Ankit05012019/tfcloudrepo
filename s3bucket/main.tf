@@ -18,7 +18,7 @@ resource "aws_s3_bucket" "b" {
   acl    = var.acl
 
   tags = {
-    Name        = "Tf test bucket"
+    Name        = "Tf-test-bucket"
     Environment = var.environment_name
   }
 
