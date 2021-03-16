@@ -16,12 +16,12 @@ provider "aws" {
 resource "aws_s3_bucket" "mybucket" {
   bucket = var.bucket_name
   acl    = var.acl
+  force_destroy = true
 
   tags = {
     Name        = "Tf-test-bucket"
     Environment = var.environment_name
   }
-
   versioning {
     enabled = true
   }
