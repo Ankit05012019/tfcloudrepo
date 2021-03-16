@@ -19,7 +19,7 @@ provider local {}
      }
 } */
 
-resource "local_file" "testfiles" {
+resource "local_file" "this" {
 
  for_each = toset(var.test)
  filename = each.value
