@@ -22,6 +22,11 @@ resource "aws_s3_bucket" "mybucket" {
     Name        = "Tf-test-bucket"
     Environment = var.environment_name
   }
+
+  lifecycle {
+    
+    prevent_destroy = false
+        }
   versioning {
     enabled = true
   }
