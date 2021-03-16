@@ -1,5 +1,5 @@
 variable "bucket_name" {
-    type = String
+    type = string
     default = "my-tf-test-bucket"
    
 }
