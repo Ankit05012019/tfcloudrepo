@@ -37,7 +37,7 @@ resource "aws_s3_bucket_policy" "bucket_policy" {
       {
         Sid       = "AllowPublicRead",
         Effect    = "Allow",
-        Principal = {"AWS","*"},
+        Principal = {"AWS":"*"},
         Action    = ["s3:GetObject"],
         Resource = [
           aws_s3_bucket.b.arn,
