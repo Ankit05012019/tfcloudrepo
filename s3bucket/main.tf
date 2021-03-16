@@ -43,11 +43,6 @@ resource "aws_s3_bucket_policy" "bucket_policy" {
           aws_s3_bucket.mybucket.arn,
           "${aws_s3_bucket.mybucket.arn}/*",
         ]
-        Condition = {
-          IpAddress = {
-            "aws:SourceIp" = "*"
-          }
-        }
       },
     ]
   })
