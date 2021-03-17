@@ -1,6 +1,6 @@
 variable "bucket_name" {
-    type = string
-    default = ["firstdemobucket",]
+    type = list
+    default = []
    
 }
 
