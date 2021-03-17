@@ -9,8 +9,8 @@ variable "aws_users" {
   default = ["ankit.tripathi@scaleworx.io"]
 }
 
-variable "devops_group_users" 
-{
+variable "devops_group_users" {
+
   type = list
   default = ["ankit.tripathi@scaleworx.io"]
 }
