@@ -13,7 +13,9 @@ resource "aws_s3_bucket" "mybucket" {
 }
 
 resource "aws_s3_bucket_policy" "bucket_policy" {
-  bucket = aws_s3_bucket.mybucket.id
+
+  for_each = toset(var.bucket_name)
+  bucket = aws_s3_bucket.mybucket[each.key].id
 
   policy = jsonencode(file("./bucket_policies/publicReadOnly.json"))
 }
