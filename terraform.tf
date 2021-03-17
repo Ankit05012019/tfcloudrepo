@@ -3,7 +3,7 @@ terraform {
     organization = "scaleworx"
 
     workspaces {
-      prefix = "th-"
+      prefix = "tw-"
     }
   }
 }
