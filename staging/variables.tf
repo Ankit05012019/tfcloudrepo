@@ -1,5 +1,5 @@
 variable "bucket_name" {
-    type = string
+    
     default = ["demobacket-tw-1","demobucket-tw-2"]
    
 }
