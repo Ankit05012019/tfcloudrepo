@@ -1,0 +1,16 @@
+{
+    "Version"  :  "2012-10-17",
+    "Id"     : "MyBucketPolicy",
+    "Statement" : [
+      {
+        "Sid"    : "AllowPublicRead",
+        "Effect"  : "Allow",
+        "Principal" : {"AWS":"*"},
+        "Action"    : ["s3:GetObject"],
+        "Resource" : [
+          "aws_s3_bucket.mybucket.arn",
+          "${aws_s3_bucket.mybucket.arn}/*"
+        ]
+      }
+    ]
+  }
