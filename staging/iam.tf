@@ -1,7 +1,7 @@
 module "aws-user-management" {
 
     source = "../modules/aws-user-management"
-    aws_user = var.aws_user
+    aws_users = var.aws_users
     devops_group_users = var.devops_group_users
   
 }
