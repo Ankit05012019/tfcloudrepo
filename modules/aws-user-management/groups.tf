@@ -1,7 +1,7 @@
 # Group Creation 
 resource "aws_iam_group" "aws-group" {
   for_each = toset(var.aws_groups)
-  name     = "${each.value}"
+  name     = each.value
 }
 
 # Group Membership Management for Admin, Devops and Developer groups
