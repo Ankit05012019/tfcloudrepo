@@ -27,8 +27,8 @@ resource "aws_s3_bucket_policy" "bucket_policy" {
                   Principal = {"AWS":"*"},
                   Action    = ["s3:GetObject"],
                   Resource = [
-                         aws_s3_bucket.mybucket.arn,
-                        "${aws_s3_bucket.mybucket.arn}/*",
+                         aws_s3_bucket.mybucket[each.key].arn,
+                        "${aws_s3_bucket.mybucket[each.key].arn}/*",
                    ]
               },
             ]
