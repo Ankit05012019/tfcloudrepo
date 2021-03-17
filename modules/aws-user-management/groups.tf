@@ -8,17 +8,17 @@ resource "aws_iam_group" "aws-group" {
 resource "aws_iam_group_membership" "devops-group-membership" {
   name = "devops-group-membership"
   users = "${var.devops_group_users}"
-  group = "devops-group"
+  group = "devops"
 }
 resource "aws_iam_group_membership" "developer-group-membership" {
   name = "developer-group-membership"
   users = "${var.developer_group_users}"
-  group = "developer-group"
+  group = "developer"
 }
 resource "aws_iam_group_membership" "admin-group-membership" {
   name = "admin-group-membership"
   users = "${var.admin_group_users}"
-  group = "admin-group"
+  group = "admin"
 }
 
 # Group Policy Attachments
