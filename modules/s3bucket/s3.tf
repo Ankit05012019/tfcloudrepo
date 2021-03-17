@@ -17,8 +17,24 @@ resource "aws_s3_bucket_policy" "bucket_policy" {
   for_each = toset(var.bucket_name)
   bucket = aws_s3_bucket.mybucket[each.key].id
 
-  policy = file("${path.module}/bucket_policies/publicReadOnly.json")
+  policy = jsonencode({
+             Version = "2012-10-17"
+             Id      = "MyBucketPolicy"
+             Statement = [
+               {
+                  Sid       = "AllowPublicRead",
+                  Effect    = "Allow",
+                  Principal = {"AWS":"*"},
+                  Action    = ["s3:GetObject"],
+                  Resource = [
+                         aws_s3_bucket.mybucket.arn,
+                        "${aws_s3_bucket.mybucket.arn}/*",
+                   ]
+              },
+            ]
+         })
 }
+
 
 
 /*resource "aws_iam_group_policy" "bucket_policy" {
