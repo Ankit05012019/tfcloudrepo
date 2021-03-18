@@ -53,7 +53,7 @@ resource "aws_iam_group_policy" "bucket_policy" {
         ]
         Effect   = "Allow"
         Resource = [
-             "aws_s3_bucket.mybucket[each.key].arn",
+              aws_s3_bucket.mybucket[each.key].arn,
              "${aws_s3_bucket.mybucket[each.key].arn}/*"
 
         ]
