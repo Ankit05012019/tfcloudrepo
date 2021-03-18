@@ -37,10 +37,11 @@ resource "aws_s3_bucket_policy" "bucket_policy" {
 
 
 
-/*resource "aws_iam_group_policy" "bucket_policy" {
-
-  name  = "developer_bucket_policy_${aws_s3_bucket.}"
-  group = aws_iam_group.my_developers.name
+resource "aws_iam_group_policy" "bucket_policy" {
+  
+  for_each = toset(var.bucket_name)
+  name  = "developer_bucket_policy_${aws_s3_bucket.mybucket[each.key].name}"
+  group = "developer"
 
   policy = jsonencode({
     Version = "2012-10-17"
@@ -52,12 +53,14 @@ resource "aws_s3_bucket_policy" "bucket_policy" {
         ]
         Effect   = "Allow"
         Resource = [
-             "aws_s3_bucket.mybucket.arn",
-             "${aws_s3_bucket.mybucket.arn}/*"
+             "aws_s3_bucket.mybucket[each.key].arn",
+             "${aws_s3_bucket.mybucket[each.key].arn}/*"
 
         ]
       },
     ]
   })
   
-}*/
+}
+
+
