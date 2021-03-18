@@ -40,7 +40,7 @@ resource "aws_s3_bucket_policy" "bucket_policy" {
 resource "aws_iam_group_policy" "bucket_policy" {
   
   for_each = toset(var.bucket_name)
-  name  = "developer_bucket_policy_${aws_s3_bucket.mybucket[each.key].name}"
+  name  = "developer_bucket_policy_${aws_s3_bucket.mybucket[each.key].id}"
   group = "developer"
 
   policy = jsonencode({
