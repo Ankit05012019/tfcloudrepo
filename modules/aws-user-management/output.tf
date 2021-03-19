@@ -8,6 +8,6 @@ output "password" {
 
 
      value = tomap({
-    for name , user in aws_iam_user.aws-user : name => user.encrypted_password
+    for name , user in aws_iam_user.aws-user : name => user.arn
   })
 }
