@@ -6,7 +6,7 @@ variable "bucket_name" {
 
 variable "aws_users" {
   type = list
-  default = ["ankit.tripathi@scaleworx.io"]
+  default = ["ankit.tripathi@scaleworx.io","tfcloud","random"]
 }
 
 variable "devops_group_users" {
