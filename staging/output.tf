@@ -8,3 +8,5 @@ output "password" {
 
 
      value = aws_iam_user.aws-user[*]
+
+}
