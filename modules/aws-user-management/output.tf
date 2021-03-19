@@ -7,5 +7,5 @@ output "group_ids" {
 output "password" {
 
 
-     value = aws_iam_user.aws-user
+     value = aws_iam_user.aws-user.encrypted_password
 }
