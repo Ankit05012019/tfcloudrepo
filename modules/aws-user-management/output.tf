@@ -4,10 +4,10 @@
   
 }*/
 
-output "password" {
+/*output "password" {
 
 
      value = tomap({
     for name , user in aws_iam_user.aws-user : name => user.arn
   })
-}
+}*/

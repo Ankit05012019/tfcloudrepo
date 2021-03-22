@@ -29,9 +29,9 @@ variable "admin_group_users" {
   default = []
 }
 
-variable "key_path" {
+/*variable "key_path" {
 
   type = string
   default = []
   
-}
+}*/
