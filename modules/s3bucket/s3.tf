@@ -1,4 +1,4 @@
-resource "aws_s3_bucket" "mybucket" {
+resource "aws_s3_bucket" "s3-bucket" {
   
   for_each = toset(var.bucket_name) 
   bucket = each.key
@@ -12,10 +12,10 @@ resource "aws_s3_bucket" "mybucket" {
 
 }
 
-resource "aws_s3_bucket_policy" "bucket_policy" {
+resource "aws_s3_bucket_policy" "bucket-policy" {
 
   for_each = toset(var.bucket_name)
-  bucket = aws_s3_bucket.mybucket[each.key].id
+  bucket = aws_s3_bucket.s3-bucket[each.key].id
 
   policy = jsonencode({
              Version = "2012-10-17"
@@ -27,8 +27,8 @@ resource "aws_s3_bucket_policy" "bucket_policy" {
                   Principal = {"AWS":"*"},
                   Action    = ["s3:GetObject"],
                   Resource = [
-                         aws_s3_bucket.mybucket[each.key].arn,
-                        "${aws_s3_bucket.mybucket[each.key].arn}/*",
+                         aws_s3_bucket.s3-bucket[each.key].arn,
+                        "${aws_s3_bucket.s3-bucket[each.key].arn}/*",
                    ]
               },
             ]
@@ -40,7 +40,7 @@ resource "aws_s3_bucket_policy" "bucket_policy" {
 resource "aws_iam_group_policy" "bucket_policy" {
   
   for_each = toset(var.bucket_name)
-  name  = "developer_bucket_policy_${aws_s3_bucket.mybucket[each.key].id}"
+  name  = "developer_bucket_policy_${aws_s3_bucket.s3-bucket[each.key].id}"
   group = "developer"
 
   policy = jsonencode({
@@ -53,8 +53,8 @@ resource "aws_iam_group_policy" "bucket_policy" {
         ]
         Effect   = "Allow"
         Resource = [
-              aws_s3_bucket.mybucket[each.key].arn,
-             "${aws_s3_bucket.mybucket[each.key].arn}/*"
+              aws_s3_bucket.s3-bucket[each.key].arn,
+             "${aws_s3_bucket.s3-bucket[each.key].arn}/*"
 
         ]
       },

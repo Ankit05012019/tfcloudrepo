@@ -5,8 +5,7 @@
       "Sid": "FullStackS3Access",
       "Action": [
         "s3:Get*",
-        "s3:List*",
-        "s3:Put*"
+        "s3:List*"
       ],
       "Effect": "Allow",
       "Resource": "*"
