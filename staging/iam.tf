@@ -6,8 +6,8 @@ module "aws-user-management" {
   
 }
 
-output "user-details" {
+/*output "user-details" {
 
     value = "${module.aws-user-management.password}"
   
-}
+}*/
