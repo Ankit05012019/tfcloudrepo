@@ -105,7 +105,7 @@ resource "aws_subnet" "private-subnet" {
 
 resource "aws_route_table" "private-route-table" {
  
-  for_each         = var.private_subnet
+  for_each         = var.private_subnets
   vpc_id           = aws_vpc.th-vpc.id
   #propagating_vgws = ["${var.private_propagating_vgws}"]
 
@@ -114,7 +114,7 @@ resource "aws_route_table" "private-route-table" {
     nat_gateway_id =  aws_nat_gateway.nat[each.key].id
   }
 
-  tags {
+  tags = {
     Name            = "${each.key}-public"
     environment     = "${var.environment}"
   }
