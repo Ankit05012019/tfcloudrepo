@@ -59,7 +59,7 @@ variable "enable_dns_support" {
   default     = false
 }
 
-variable "public_propagating_vgws" {
+/*variable "public_propagating_vgws" {
   description = "A list of VGWs the public route table should propagate."
   default     = []
-}
+}*/
