@@ -1,6 +1,5 @@
 variable "name" {}
-variable "aws_key_name" {}
-variable "aws_region" {}
+
 variable "environment" {}
 
 variable "cidr" {
@@ -21,7 +20,7 @@ variable "public_subnets" {
   }
 }
 
-variable "private_subnets" {
+/*variable "private_subnets" {
   description = "A map of availability zones to private cidrs"
   type        = "map"
   default     = {}
@@ -78,4 +77,4 @@ variable "legacy_vpc_id" {
 
 variable "datadog_api_key" {
   description = "Datadog API key"
-}
+}*/

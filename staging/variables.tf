@@ -5,8 +5,10 @@ variable "bucket_name" {
 }
 
 variable "aws_users" {
+
   type = list
   default = ["ankit.tripathi@scaleworx.io","tfcloud","random","rohan"]
+
 }
 
 variable "devops_group_users" {
@@ -34,6 +36,7 @@ variable "cidr" {
 }
 
 variable "public_subnets" {
+
   description = "A map of availability zones to public cidrs"
   type        = "map"
   default     = {
