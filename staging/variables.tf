@@ -59,6 +59,17 @@ variable "enable_dns_support" {
   default     = false
 }
 
+variable "private_subnets" {
+  description = "A map of availability zones to private cidrs"
+  type        = "map"
+  default     = {
+
+    us-east-1a = "192.168.4.0/24",
+    us-east-1b = "192.168.5.0/24",
+    us-east-1c = "192.168.6.0/24"
+
+  }
+}
 /*variable "public_propagating_vgws" {
   description = "A list of VGWs the public route table should propagate."
   default     = []

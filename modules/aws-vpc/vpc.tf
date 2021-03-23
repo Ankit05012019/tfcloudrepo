@@ -79,30 +79,35 @@ resource "aws_route_table_association" "public" {
 
 /*
   Private Subnet
+*/
+
+resource "aws_subnet" "private-subnet" {
+  #count = "${length(keys(var.private_subnets))}"
+
+  #vpc_id            = "${aws_vpc.default.id}"
+  #cidr_block        = "${lookup(var.private_subnets, element(keys(var.private_subnets), count.index))}"
+  #availability_zone = "${element(keys(var.private_subnets), count.index)}"
+  for_each          = var.private_subnets
+  vpc_id            = aws_vpc.th-vpc.id
+  cidr_block        = each.value
+  availability_zone = each.key
+
+  map_public_ip_on_launch = true
 
 
-resource "aws_subnet" "private" {
-  count = "${length(keys(var.private_subnets))}"
-
-  vpc_id            = "${aws_vpc.default.id}"
-  cidr_block        = "${lookup(var.private_subnets, element(keys(var.private_subnets), count.index))}"
-  availability_zone = "${element(keys(var.private_subnets), count.index)}"
-
-  tags {
-    Name                              = "${element(keys(var.private_subnets), count.index)} (private)"
-    environment                       = "${var.environment}"
-    "kubernetes.io/cluster/data-eks"  = "shared"
-    "kubernetes.io/role/internal-elb" = "1"
+  tags = {
+    Name            = "${each.key}-public"
+    environment     = "${var.environment}"
   }
 
   depends_on = ["aws_vpc.default"]
 }
 
-resource "aws_route_table" "private" {
-  count = "${length(var.private_subnets)}"
+resource "aws_route_table" "private-route-table" {
+ 
 
-  vpc_id           = "${aws_vpc.default.id}"
-  propagating_vgws = ["${var.private_propagating_vgws}"]
+  vpc_id           = aws_vpc.th-vpc.id
+  #propagating_vgws = ["${var.private_propagating_vgws}"]
 
   route {
     cidr_block     = "0.0.0.0/0"
@@ -110,35 +115,41 @@ resource "aws_route_table" "private" {
   }
 
   tags {
-    Name        = "${element(keys(var.private_subnets), count.index)} (private)"
-    environment = "${var.environment}"
+    Name            = "${each.key}-public"
+    environment     = "${var.environment}"
   }
 
-  depends_on = ["aws_vpc.default", "aws_nat_gateway.nat"]
+  depends_on = ["aws_vpc.th-vpc", "aws_nat_gateway.nat"]
 }
 
 resource "aws_route_table_association" "private" {
-  count = "${length(var.private_subnets)}"
 
-  subnet_id      = "${element(aws_subnet.private.*.id, count.index)}"
-  route_table_id = "${element(aws_route_table.private.*.id, count.index)}"
+  for_each       =  var.private_subnets
+  subnet_id      =  aws_subnet.private-subnet[each.key].id
+  
+  route_table_id = aws_route_table.private-route-table.id
+  #count = "${length(var.private_subnets)}"
 
-  depends_on = ["aws_subnet.private", "aws_route_table.private"]
+  #subnet_id      = "${element(aws_subnet.private.*.id, count.index)}"
+  #route_table_id = "${element(aws_route_table.private.*.id, count.index)}"
+
+  depends_on = ["aws_subnet.private-subnet", "aws_route_table.private-route-table"]
 }
 
 /*
   NAT Gateway
 */
-/*
-resource "aws_eip" "nat" {
-  count = "${length(var.public_subnets)}"
-  vpc   = true
+
+resource "aws_eip" "aws-eip" {
+  
+  for_each       =  var.public_subnets
+  vpc            =  true
 }
 
 resource "aws_nat_gateway" "nat" {
-  count         = "${length(var.public_subnets)}"
-  allocation_id = "${element(aws_eip.nat.*.id, count.index)}"
-  subnet_id     = "${element(aws_subnet.public.*.id, count.index)}"
+  #count         = "${length(var.public_subnets)}"
+  for_each      =  var.public_subnets 
+  allocation_id =  aws_eip.aws-eip[each.key].id
+  subnet_id     =  aws_subnet.public-subnet[each.key].id
   depends_on    = ["aws_subnet.public"]
 }
-*/

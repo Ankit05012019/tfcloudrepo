@@ -42,21 +42,27 @@ variable "enable_dns_support" {
 
 
 
-/*variable "private_subnets" {
+variable "private_subnets" {
   description = "A map of availability zones to private cidrs"
   type        = "map"
-  default     = {}
+  default     = {
+
+    us-east-1a = "192.168.4.0/24",
+    us-east-1b = "192.168.5.0/24",
+    us-east-1c = "192.168.6.0/24"
+
+  }
 }
 
 
 
 
-variable "private_propagating_vgws" {
+/*variable "private_propagating_vgws" {
   description = "A list of VGWs the private route table should propagate."
   default     = []
-}
+}*/
 
-variable "bastion_ami" {
+/*variable "bastion_ami" {
   description = "AMI to create bastion server with"
 
   default = {
