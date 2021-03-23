@@ -24,13 +24,13 @@ variable "name" {
 variable "environment" {
 
     type = string 
-    defaule = "staging"
+    default = "staging"
 }
 
 variable "cidr" {
   description = "The CIDR block for the VPC."
   type = string
-  default = "192.168.0.0\16"
+  default = "192.168.0.0/16"
 }
 
 variable "public_subnets" {
