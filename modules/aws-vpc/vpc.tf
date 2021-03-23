@@ -100,18 +100,18 @@ resource "aws_subnet" "private-subnet" {
     environment     = "${var.environment}"
   }
 
-  depends_on = ["aws_vpc.default"]
+  depends_on = ["aws_vpc.th-vpc"]
 }
 
 resource "aws_route_table" "private-route-table" {
  
-
+  for_each         = var.private_subnet
   vpc_id           = aws_vpc.th-vpc.id
   #propagating_vgws = ["${var.private_propagating_vgws}"]
 
   route {
     cidr_block     = "0.0.0.0/0"
-    nat_gateway_id = "${element(aws_nat_gateway.nat.*.id, count.index)}"
+    nat_gateway_id =  aws_nat_gateway.nat[each.key].id
   }
 
   tags {
@@ -151,5 +151,5 @@ resource "aws_nat_gateway" "nat" {
   for_each      =  var.public_subnets 
   allocation_id =  aws_eip.aws-eip[each.key].id
   subnet_id     =  aws_subnet.public-subnet[each.key].id
-  depends_on    = ["aws_subnet.public"]
+  depends_on    = ["aws_subnet.public-subnet"]
 }
