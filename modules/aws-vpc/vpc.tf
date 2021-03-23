@@ -40,7 +40,7 @@ resource "aws_subnet" "public-subnet" {
 
    map_public_ip_on_launch = true
 
-}
+
 
   tags {
     Name        = "${each.key}-public"
