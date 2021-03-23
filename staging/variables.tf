@@ -58,3 +58,8 @@ variable "enable_dns_support" {
   description = "Should be true if you want to use private DNS within the VPC"
   default     = false
 }
+
+variable "public_propagating_vgws" {
+  description = "A list of VGWs the public route table should propagate."
+  default     = []
+}

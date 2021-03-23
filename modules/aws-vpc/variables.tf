@@ -35,6 +35,12 @@ variable "enable_dns_support" {
   default     = false
 }
 
+variable "public_propagating_vgws" {
+  description = "A list of VGWs the public route table should propagate."
+  default     = []
+}
+
+
 
 /*variable "private_subnets" {
   description = "A map of availability zones to private cidrs"
@@ -43,10 +49,7 @@ variable "enable_dns_support" {
 }
 
 
-variable "public_propagating_vgws" {
-  description = "A list of VGWs the public route table should propagate."
-  default     = []
-}
+
 
 variable "private_propagating_vgws" {
   description = "A list of VGWs the private route table should propagate."
