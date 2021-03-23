@@ -1,4 +1,8 @@
-variable "name" {}
+variable "name" {
+
+    type = string 
+    default = "staging-vpc"
+}
 
 variable "environment" {}
 

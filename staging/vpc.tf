@@ -1,5 +1,6 @@
 module "staging-vpc" {
 
+
     source               = "../modules/aws-vpc"
     cidr_block           = var.cidr
     Name                 = var.name
