@@ -127,7 +127,7 @@ resource "aws_route_table_association" "private" {
   for_each       =  var.private_subnets
   subnet_id      =  aws_subnet.private-subnet[each.key].id
   
-  route_table_id = aws_route_table.private-route-table.id
+  route_table_id = aws_route_table.private-route-table[each-key].id
   #count = "${length(var.private_subnets)}"
 
   #subnet_id      = "${element(aws_subnet.private.*.id, count.index)}"
