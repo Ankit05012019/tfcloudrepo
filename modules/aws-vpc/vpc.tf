@@ -3,7 +3,8 @@ resource "aws_vpc" "th-vpc" {
   enable_dns_hostnames = var.enable_dns_hostnames
   enable_dns_support   = var.enable_dns_support
 
-  tags {
+  tags = {
+
     Name        = var.name
     environment = var.environment
   }
@@ -13,7 +14,7 @@ resource "aws_internet_gateway" "default" {
   vpc_id     = aws_vpc.th-vpc.id
   depends_on = ["aws_vpc.th-vpc"]
 
-  tags {
+  tags = {
     Name        = var.name
     environment = var.environment
   }
@@ -42,7 +43,7 @@ resource "aws_subnet" "public-subnet" {
 
 
 
-  tags {
+  tags = {
     Name        = "${each.key}-public"
     environment = var.environment
   }
@@ -59,7 +60,7 @@ resource "aws_route_table" "public-route-table" {
     gateway_id = "${aws_internet_gateway.default.id}"
   }
 
-  tags {
+  tags = {
     Name        = "${var.name} (public)"
     environment = "${var.environment}"
   }
