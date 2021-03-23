@@ -43,7 +43,7 @@ resource "aws_subnet" "public-subnet" {
 }
 
   tags {
-    Name        = each.key"-public"
+    Name        = "${each.key}-public"
     environment = var.environment
   }
 
