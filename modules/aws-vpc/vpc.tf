@@ -53,7 +53,7 @@ resource "aws_subnet" "public-subnet" {
 
 resource "aws_route_table" "public-route-table" {
   vpc_id           = aws_vpc.th-vpc.id
-  propagating_vgws = [var.public_propagating_vgws]
+  #propagating_vgws = [var.public_propagating_vgws]
 
   route {
     cidr_block = "0.0.0.0/0"
