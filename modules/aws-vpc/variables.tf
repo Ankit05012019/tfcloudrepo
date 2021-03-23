@@ -24,11 +24,6 @@ variable "public_subnets" {
   }
 }
 
-/*variable "private_subnets" {
-  description = "A map of availability zones to private cidrs"
-  type        = "map"
-  default     = {}
-}
 
 variable "enable_dns_hostnames" {
   description = "Should be true if you want to use private DNS within the VPC"
@@ -39,6 +34,14 @@ variable "enable_dns_support" {
   description = "Should be true if you want to use private DNS within the VPC"
   default     = false
 }
+
+
+/*variable "private_subnets" {
+  description = "A map of availability zones to private cidrs"
+  type        = "map"
+  default     = {}
+}
+
 
 variable "public_propagating_vgws" {
   description = "A list of VGWs the public route table should propagate."
