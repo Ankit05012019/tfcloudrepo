@@ -2,9 +2,9 @@ module "staging-vpc" {
 
 
     source               = "../modules/aws-vpc"
-    cidr_block           = var.cidr
-    Name                 = var.name
+    cidr          = var.cidr
+    name                 = var.name
     environment          = var.environment
-    public-subnet        = var.public_subnets
+    public_subnets        = var.public_subnets
 
 }
