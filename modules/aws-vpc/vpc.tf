@@ -65,7 +65,7 @@ resource "aws_route_table" "public-route-table" {
     environment = "${var.environment}"
   }
 
-  depends_on = ["aws_vpc.default", "aws_internet_gateway.default"]
+  depends_on = ["aws_vpc.th-vpc", "aws_internet_gateway.default"]
 }
 
 resource "aws_route_table_association" "public" {
