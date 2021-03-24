@@ -24,14 +24,6 @@ resource "aws_internet_gateway" "default" {
   Public Subnet
 */
 
-/*resource "aws_subnet" "public" {
-  count = length(var.public_subnets)
-
-  vpc_id                  = aws_vpc.default.id
-  cidr_block              = lookup(var.public_subnets, element(keys(var.public_subnets), count.index))
-  availability_zone       = element(keys(var.public_subnets), count.index)
-  map_public_ip_on_launch = true*/
-
 resource "aws_subnet" "public-subnet" {
 
    for_each = var.public_subnets
@@ -72,9 +64,8 @@ resource "aws_route_table_association" "public" {
 
   for_each       =  var.public_subnets
   subnet_id      =  aws_subnet.public-subnet[each.key].id
-  #subnet_id      = "${element(aws_subnet.public.*.id, count.index)}"
   route_table_id = aws_route_table.public-route-table.id
-  #count          = "${length(keys(var.public_subnets))}"
+  
 }
 
 /*
@@ -82,11 +73,7 @@ resource "aws_route_table_association" "public" {
 */
 
 resource "aws_subnet" "private-subnet" {
-  #count = "${length(keys(var.private_subnets))}"
 
-  #vpc_id            = "${aws_vpc.default.id}"
-  #cidr_block        = "${lookup(var.private_subnets, element(keys(var.private_subnets), count.index))}"
-  #availability_zone = "${element(keys(var.private_subnets), count.index)}"
   for_each          = var.private_subnets
   vpc_id            = aws_vpc.th-vpc.id
   cidr_block        = each.value
@@ -128,10 +115,6 @@ resource "aws_route_table_association" "private" {
   subnet_id      =  aws_subnet.private-subnet[each.key].id
   
   route_table_id = aws_route_table.private-route-table[each.key].id
-  #count = "${length(var.private_subnets)}"
-
-  #subnet_id      = "${element(aws_subnet.private.*.id, count.index)}"
-  #route_table_id = "${element(aws_route_table.private.*.id, count.index)}"
 
   depends_on = ["aws_subnet.private-subnet", "aws_route_table.private-route-table"]
 }
