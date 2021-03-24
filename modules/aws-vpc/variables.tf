@@ -42,7 +42,7 @@ variable "enable_dns_support" {
 
 
 
-variable "private_subnets" {
+variable "private_subnets_app" {
   description = "A map of availability zones to private cidrs"
   type        = "map"
   default     = {
