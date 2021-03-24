@@ -102,7 +102,7 @@ resource "aws_route_table" "private-route-table-app" {
   }
 
   tags = {
-    Name            = "${aws_subnet.private-subnet-app[each.key].name}"
+    Name            = "${each.key}-private-app"
     environment     = "${var.environment}"
   }
 
@@ -153,7 +153,7 @@ resource "aws_route_table" "private-route-table-db" {
   }
 
   tags = {
-    Name            = "${aws_route_table.private-route-table-db[each.key].name}"
+    Name            = "${each.key}-private-db"
     environment     = "${var.environment}"
   }
 
