@@ -53,7 +53,7 @@ resource "aws_route_table" "public-route-table" {
   }
 
   tags = {
-    Name        = "${var.name} (public)"
+    Name        = "${var.name}-public"
     environment = "${var.environment}"
   }
 
@@ -102,7 +102,7 @@ resource "aws_route_table" "private-route-table-app" {
   }
 
   tags = {
-    Name            = "${each.key}-private-app"
+    Name            = "${aws_subnet.private-subnet-app[each.key]}"
     environment     = "${var.environment}"
   }
 
@@ -153,7 +153,7 @@ resource "aws_route_table" "private-route-table-db" {
   }
 
   tags = {
-    Name            = "${each.key}-private-db"
+    Name            = "${aws_route_table.private-route-table-db[each.key]}"
     environment     = "${var.environment}"
   }
 
