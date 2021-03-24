@@ -160,7 +160,7 @@ resource "aws_route_table" "private-route-table-db" {
   depends_on = ["aws_vpc.th-vpc", "aws_nat_gateway.nat"]
 }
 
-resource "aws_route_table_association" "private-app" {
+resource "aws_route_table_association" "private-db" {
 
   for_each       =  var.private_subnets_db
   subnet_id      =  aws_subnet.private-subnet-db[each.key].id
