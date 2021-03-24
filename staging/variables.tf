@@ -59,7 +59,7 @@ variable "enable_dns_support" {
   default     = false
 }
 
-variable "private_subnets" {
+variable "private_subnets_app" {
   description = "A map of availability zones to private cidrs"
   type        = "map"
   default     = {
@@ -67,6 +67,19 @@ variable "private_subnets" {
     us-east-1a = "192.168.4.0/24",
     us-east-1b = "192.168.5.0/24",
     us-east-1c = "192.168.6.0/24"
+
+  }
+}
+
+
+variable "private_subnets_db" {
+  description = "A map of availability zones to private cidrs"
+  type        = "map"
+  default     = {
+
+    us-east-1a = "192.168.7.0/24",
+    us-east-1b = "192.168.8.0/24",
+    us-east-1c = "192.168.9.0/24"
 
   }
 }

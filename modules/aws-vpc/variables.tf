@@ -55,42 +55,18 @@ variable "private_subnets" {
 }
 
 
+variable "private_subnets_db" {
+  description = "A map of availability zones to private cidrs"
+  type        = "map"
+  default     = {
 
+    us-east-1a = "192.168.7.0/24",
+    us-east-1b = "192.168.8.0/24",
+    us-east-1c = "192.168.9.0/24"
 
-/*variable "private_propagating_vgws" {
-  description = "A list of VGWs the private route table should propagate."
-  default     = []
-}*/
-
-/*variable "bastion_ami" {
-  description = "AMI to create bastion server with"
-
-  default = {
-    us-east-1 = "ami-6869aa05"
   }
 }
 
-variable "bastion_instance_type" {
-  description = "Availability zone to put the NAT in"
-  default     = "t2.micro"
-}
 
-variable "internal_fqdn" {
-  description = "Domain to be used for internal DNS"
-}
 
-variable "legacy_cidr" {
-  description = "The legacy cidr block"
-}
 
-variable "legacy_account_id" {
-  description = "AWS account id of the legacy AWS"
-}
-
-variable "legacy_vpc_id" {
-  description = "VPC ID of the legacy VPC"
-}
-
-variable "datadog_api_key" {
-  description = "Datadog API key"
-}*/

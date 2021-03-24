@@ -69,12 +69,12 @@ resource "aws_route_table_association" "public" {
 }
 
 /*
-  Private Subnet
+  Private Subnet App
 */
 
-resource "aws_subnet" "private-subnet" {
+resource "aws_subnet" "private-subnet-app" {
 
-  for_each          = var.private_subnets
+  for_each          = var.private_subnets_app
   vpc_id            = aws_vpc.th-vpc.id
   cidr_block        = each.value
   availability_zone = each.key
@@ -83,16 +83,16 @@ resource "aws_subnet" "private-subnet" {
 
 
   tags = {
-    Name            = "${each.key}-public"
+    Name            = "${each.key}-private-app"
     environment     = "${var.environment}"
   }
 
   depends_on = ["aws_vpc.th-vpc"]
 }
 
-resource "aws_route_table" "private-route-table" {
+resource "aws_route_table" "private-route-table-app" {
  
-  for_each         = var.private_subnets
+  for_each         = var.private_subnets_app
   vpc_id           = aws_vpc.th-vpc.id
   #propagating_vgws = ["${var.private_propagating_vgws}"]
 
@@ -102,7 +102,7 @@ resource "aws_route_table" "private-route-table" {
   }
 
   tags = {
-    Name            = "${each.key}-public"
+    Name            = "${each.key}-private-app"
     environment     = "${var.environment}"
   }
 
@@ -111,13 +111,66 @@ resource "aws_route_table" "private-route-table" {
 
 resource "aws_route_table_association" "private" {
 
-  for_each       =  var.private_subnets
-  subnet_id      =  aws_subnet.private-subnet[each.key].id
+  for_each       =  var.private_subnets_app
+  subnet_id      =  aws_subnet.private-subnet-app[each.key].id
   
-  route_table_id = aws_route_table.private-route-table[each.key].id
+  route_table_id = aws_route_table.private-route-table-app[each.key].id
 
-  depends_on = ["aws_subnet.private-subnet", "aws_route_table.private-route-table"]
+  depends_on = ["aws_subnet.private-subnet-app", "aws_route_table.private-route-table-app"]
 }
+
+
+/* Private Subnet DB */
+
+
+resource "aws_subnet" "private-subnet-db" {
+
+  for_each          = var.private_subnets_db
+  vpc_id            = aws_vpc.th-vpc.id
+  cidr_block        = each.value
+  availability_zone = each.key
+
+  map_public_ip_on_launch = true
+
+
+  tags = {
+    Name            = "${each.key}-private-db"
+    environment     = "${var.environment}"
+  }
+
+  depends_on = ["aws_vpc.th-vpc"]
+}
+
+resource "aws_route_table" "private-route-table-db" {
+ 
+  for_each         = var.private_subnets_db
+  vpc_id           = aws_vpc.th-vpc.id
+  #propagating_vgws = ["${var.private_propagating_vgws}"]
+
+  route {
+    cidr_block     = "0.0.0.0/0"
+    nat_gateway_id =  aws_nat_gateway.nat[each.key].id
+  }
+
+  tags = {
+    Name            = "${each.key}-private-db"
+    environment     = "${var.environment}"
+  }
+
+  depends_on = ["aws_vpc.th-vpc", "aws_nat_gateway.nat"]
+}
+
+resource "aws_route_table_association" "private" {
+
+  for_each       =  var.private_subnets_db
+  subnet_id      =  aws_subnet.private-subnet-db[each.key].id
+  
+  route_table_id = aws_route_table.private-route-table-db[each.key].id
+
+  depends_on = ["aws_subnet.private-subnet-db", "aws_route_table.private-route-table-db"]
+}
+
+
 
 /*
   NAT Gateway
