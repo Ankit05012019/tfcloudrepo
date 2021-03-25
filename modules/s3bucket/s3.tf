@@ -10,6 +10,15 @@ resource "aws_s3_bucket" "s3-bucket" {
     Environment = var.environment_name
   }
 
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        kms_master_key_id = aws_kms_key.mykey.arn
+        sse_algorithm     = "aws:kms"
+      }
+    }
+  }
+
 }
 
 resource "aws_s3_bucket_policy" "bucket-policy" {
@@ -61,6 +70,12 @@ resource "aws_iam_group_policy" "bucket_policy" {
     ]
   })
   
+}
+
+
+resource "aws_kms_key" "mykey" {
+  description             = "This key is used to encrypt bucket objects"
+  deletion_window_in_days = 10
 }
 
 
