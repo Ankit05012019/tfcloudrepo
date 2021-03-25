@@ -116,7 +116,7 @@ variable "limit_amount" {
 variable "time_unit" {
 
      type = string
-     default = "DAILY"
+     default = "MONTHLY"
 
 }
 
