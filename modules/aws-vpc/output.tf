@@ -1,6 +1,6 @@
 output "vpc-id" {
   
-     value = [aws_vpc.tw-vpc.vpc_id]
+     value = [aws_vpc.th-vpc.vpc_id]
 
 }
 
