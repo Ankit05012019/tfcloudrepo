@@ -1,4 +1,4 @@
-module "daily-budget" {
+/*module "daily-budget" {
 
     source          =   "../modules/aws-budget"
     budget_name     = var.budget_name   
@@ -8,4 +8,4 @@ module "daily-budget" {
     email_addresses = var.email_addresses
 
 
-}
+}*/
