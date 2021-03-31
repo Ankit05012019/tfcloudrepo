@@ -1,4 +1,4 @@
-resource "aws_vpc" "th-vpc" {
+resource "aws_vpc" "tw-vpc" {
   cidr_block           = var.cidr
   enable_dns_hostnames = var.enable_dns_hostnames
   enable_dns_support   = var.enable_dns_support
@@ -189,3 +189,4 @@ resource "aws_nat_gateway" "nat" {
   subnet_id     =  aws_subnet.public-subnet[each.key].id
   depends_on    = ["aws_subnet.public-subnet"]
 }
+
