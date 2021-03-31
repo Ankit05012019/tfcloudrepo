@@ -68,8 +68,8 @@ resource "aws_route_table_association" "public" {
   
 }
 
-/*
-  Private Subnet App
+
+/*Private Subnet App*/
 
 
 resource "aws_subnet" "private-subnet-app" {
@@ -168,15 +168,15 @@ resource "aws_route_table_association" "private-db" {
   route_table_id = aws_route_table.private-route-table-db[each.key].id
 
   depends_on = ["aws_subnet.private-subnet-db", "aws_route_table.private-route-table-db"]
-}
+}*/
 
 
 
-/*
-  NAT Gateway
-*/
 
-/*resource "aws_eip" "aws-eip" {
+  /*NAT Gateway*/
+
+
+resource "aws_eip" "aws-eip" {
   
   for_each       =  var.public_subnets
   vpc            =  true
@@ -188,4 +188,4 @@ resource "aws_nat_gateway" "nat" {
   allocation_id =  aws_eip.aws-eip[each.key].id
   subnet_id     =  aws_subnet.public-subnet[each.key].id
   depends_on    = ["aws_subnet.public-subnet"]
-}*/
+}
