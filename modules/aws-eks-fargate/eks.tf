@@ -6,7 +6,7 @@ resource "aws_eks_cluster" "eks-cluster" {
   tags                      = var.tags
 
   vpc_config {
-    security_group_ids      = module.aws-vpc.vpc-id
+    security_group_ids      = module.aws-vpc.vpc-idslks
     subnet_ids              = module.aws-vpc.private-subnet-ids
 
   }
