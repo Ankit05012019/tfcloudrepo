@@ -21,6 +21,8 @@ module "eks" {
    tags                           = var.tags 
    cluster_service_ipv4_cidr      = var.cluster_service_ipv4_cidr
    cluster_endpoint_private_access_cidrs  = var.cluster_endpoint_private_access_cidrs
+   subnet_ids       =  module.aws-vpc.private-subnet-ids
+   vpc_id           =  module.aws-vpc.vpc-id
 
 
 }

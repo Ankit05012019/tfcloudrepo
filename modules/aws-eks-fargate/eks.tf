@@ -1,8 +1,5 @@
-module "aws-vpc" {
- 
-   source = "../aws-vpc"
-        
-}
+variable "vpc_id" {} 
+variable "subnet_ids" {}
 
 resource "aws_eks_cluster" "eks-cluster" {
   
@@ -12,8 +9,8 @@ resource "aws_eks_cluster" "eks-cluster" {
   tags                      = var.tags
 
   vpc_config {
-    security_group_ids      = module.aws-vpc.vpc-id
-    subnet_ids              = module.aws-vpc.private-subnet-ids
+    security_group_id       = aws_security_group.cluster.id
+    subnet_ids              = var.subnet_ids #module.aws-vpc.private-subnet-ids
 
   }
 
@@ -37,7 +34,7 @@ resource "aws_security_group_rule" "cluster_private_access" {
   protocol    = "tcp"
   cidr_blocks = var.cluster_endpoint_private_access_cidrs
 
-  security_group_id = aws_eks_cluster.eks-cluster.vpc_config.cluster_security_group_id
+  security_group_id = aws_security_group.cluster.id
 }
 
 
@@ -46,7 +43,7 @@ resource "aws_security_group" "cluster" {
   
   name_prefix = var.cluster_name
   description = "EKS cluster security group."
-  vpc_id      = module.aws-vpc.vpc-id
+  vpc_id      = var.vpc_id #module.aws-vpc.vpc-id
   tags = merge(
     var.tags,
     {
