@@ -1,10 +1,11 @@
-variable "vpc_id" {
 
-    type = string 
+module "aws-vpc" {
 
-} 
+    source = "../aws-vpc"
+}
 
-variable "subnet_ids" {}
+
+
 
 resource "aws_eks_cluster" "eks-cluster" {
   
@@ -14,8 +15,8 @@ resource "aws_eks_cluster" "eks-cluster" {
   tags                      = var.tags
 
   vpc_config {
-    security_group_ids       = aws_security_group.cluster.id
-    subnet_ids              = var.subnet_ids #module.aws-vpc.private-subnet-ids
+    security_group_id       = aws_security_group.cluster.id
+    subnet_ids              = module.aws-vpc.private-subnet-ids
 
   }
 
@@ -48,7 +49,7 @@ resource "aws_security_group" "cluster" {
   
   name_prefix = var.cluster_name
   description = "EKS cluster security group."
-  vpc_id      = var.vpc_id #module.aws-vpc.vpc-id
+  vpc_id      = var.vpc_idmodule.aws-vpc.vpc-id
   tags = merge(
     var.tags,
     {
