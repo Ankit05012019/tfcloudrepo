@@ -4,6 +4,12 @@ variable "bucket_name" {
    
 }
 
+# logging Bucket Name
+variable "log_bucket_name" {
+  type    = string
+  default = "demobacket-tw-logs"
+}
+
 variable "aws_users" {
 
   type = list
