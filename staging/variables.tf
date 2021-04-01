@@ -108,7 +108,7 @@ variable "cluster_service_ipv4_cidr" {
 
 variable "cluster_endpoint_private_access_cidrs" {
 
-     type = string 
-     default = "0.0.0.0"
+     type = list 
+     default = ["0.0.0.0"]
 
 }
