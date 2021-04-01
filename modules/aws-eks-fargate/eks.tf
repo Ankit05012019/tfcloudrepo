@@ -1,4 +1,9 @@
-variable "vpc_id" {} 
+variable "vpc_id" {
+
+    type = string 
+
+} 
+
 variable "subnet_ids" {}
 
 resource "aws_eks_cluster" "eks-cluster" {
