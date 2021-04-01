@@ -15,7 +15,7 @@ provider "kubernetes" {
 
 module "eks" {
 
-   source                         = ../modules/aws-eks-fargate
+   source                         = "../modules/aws-eks-fargate"
    cluster_name                   = var.cluster_name
    cluster_vaerison               = var.cluster_version 
    tags                           = var.tags 
