@@ -2,7 +2,7 @@
 module "aws-vpc" {
 
 
-    source               =  "../modules/aws-vpc"
+    source               =  "../aws-vpc"
     cidr                 =  var.cidr
     name                 =  var.name
     environment          =  var.environment
