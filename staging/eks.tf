@@ -24,6 +24,7 @@ module "eks" {
    vpc-id                                 =  module.staging-vpc.vpc-id
    private-subnet-ids                     =  module.staging-vpc.private-subnet-ids
    eks_node_group_instance_types          = var.eks_node_group_instance_types
-
+   cluster_endpoint_private_access        = var.cluster_endpoint_private_access
+   cluster_endpoint_public_access         = var.cluster_endpoint_public_access
 }
 
