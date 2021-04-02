@@ -17,9 +17,9 @@ variable "public_subnets" {
   type        = "map"
   default     = {
     
-    us-east-1a = "192.168.1.0/24",
-    us-east-1b = "192.168.2.0/24",
-    us-east-1c = "192.168.3.0/24"
+    us-east-2a = "192.168.1.0/24",
+    us-east-2b = "192.168.2.0/24",
+    us-east-2c = "192.168.3.0/24"
 
   }
 }
@@ -47,9 +47,9 @@ variable "private_subnets_app" {
   type        = "map"
   default     = {
 
-    us-east-1a = "192.168.4.0/24",
-    us-east-1b = "192.168.5.0/24",
-    us-east-1c = "192.168.6.0/24"
+    us-east-2a = "192.168.4.0/24",
+    us-east-2b = "192.168.5.0/24",
+    us-east-2c = "192.168.6.0/24"
 
   }
 }
@@ -60,9 +60,9 @@ variable "private_subnets_db" {
   type        = "map"
   default     = {
 
-    us-east-1a = "192.168.7.0/24",
-    us-east-1b = "192.168.8.0/24",
-    us-east-1c = "192.168.9.0/24"
+    us-east-2a = "192.168.7.0/24",
+    us-east-2b = "192.168.8.0/24",
+    us-east-2c = "192.168.9.0/24"
 
   }
 }
