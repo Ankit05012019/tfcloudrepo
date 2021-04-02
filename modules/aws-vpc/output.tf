@@ -1,6 +1,6 @@
 output "vpc-id" {
   
-     value = [aws_vpc.th-vpc.id]
+     value = aws_vpc.th-vpc.id
 
 }
 
