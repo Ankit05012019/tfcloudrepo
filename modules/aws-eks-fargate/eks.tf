@@ -1,6 +1,6 @@
 variable "private-subnet-ids" {
 
-type = "set" 
+type = set(string) 
 
 }
 
