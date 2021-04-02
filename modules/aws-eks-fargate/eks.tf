@@ -6,7 +6,7 @@ type = set(string)
 
 variable "vpc-id"  {
 
- type = string 
+ type = list(string) 
 
 } 
 
