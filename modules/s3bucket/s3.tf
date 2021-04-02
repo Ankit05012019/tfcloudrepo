@@ -74,9 +74,9 @@ resource "aws_iam_group_policy" "bucket_policy" {
 }
 
 
-resource "aws_kms_key" "mykey" {
+/*resource "aws_kms_key" "mykey" {
   description             = "This key is used to encrypt bucket objects"
   deletion_window_in_days = 10
-}
+}*/
 
 

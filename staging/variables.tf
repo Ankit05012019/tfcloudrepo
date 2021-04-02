@@ -112,3 +112,10 @@ variable "cluster_endpoint_private_access_cidrs" {
      default = ["0.0.0.0/0"]
 
 }
+
+variable "eks_node_group_instance_types" {
+
+    type = list(string)
+    default = ["t3.medium"]
+
+}
