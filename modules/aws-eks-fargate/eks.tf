@@ -15,6 +15,8 @@ resource "aws_eks_cluster" "eks-cluster" {
   name                      = var.cluster_name
   role_arn                  = aws_iam_role.eks_cluster_role.arn
   version                   = var.cluster_version
+  endpoint_private_access   = var.cluster_endpoint_private_access
+  endpoint_public_access    = var.cluster_endpoint_public_access
   tags                      = var.tags
 
   vpc_config {
