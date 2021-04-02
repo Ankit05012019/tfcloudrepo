@@ -121,7 +121,7 @@ resource "aws_eks_node_group" "eks-node-group" {
     min_size     = 3
   }
 
-  instance_types  = var.eks_node_group_instance_types
+  instance_types  = [var.eks_node_group_instance_types]
 }
 
 
