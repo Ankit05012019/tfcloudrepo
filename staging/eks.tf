@@ -21,7 +21,8 @@ module "eks" {
    tags                           = var.tags 
    cluster_service_ipv4_cidr      = var.cluster_service_ipv4_cidr
    cluster_endpoint_private_access_cidrs  = var.cluster_endpoint_private_access_cidrs
-
+   vpc-id                                 =  module.staging-vpc.vpc-id
+   private-subnet-ids                     = module.staging-vpc.private-subnet-ids
 
 
 }

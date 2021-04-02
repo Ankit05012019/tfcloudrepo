@@ -1,23 +1,16 @@
+variable "private-subnet-ids" {
 
-module "aws-vpc" {
-
-
-    source               =  "../aws-vpc"
-    cidr                 =  var.cidr
-    name                 =  var.name
-    environment          =  var.environment
-    public_subnets       =  var.public_subnets
-    /*private_subnets_db   =  var.private_subnets_db
-    private_subnets_app  =  var.private_subnets_app*/
-    enable_dns_hostnames =  var.enable_dns_hostnames
-    enable_dns_support   =  var.enable_dns_support
-
+type = "set" 
 
 }
 
+variable "vpc-id"  {
 
+ type = string 
 
+} 
 
+variable ""
 resource "aws_eks_cluster" "eks-cluster" {
   
   name                      = var.cluster_name
@@ -27,7 +20,7 @@ resource "aws_eks_cluster" "eks-cluster" {
 
   vpc_config {
     security_group_id       = aws_security_group.cluster.id
-    subnet_ids              = module.aws-vpc.private-subnet-ids
+    subnet_ids              = var.private-subnet-ids #module.aws-vpc.private-subnet-ids
 
   }
 
@@ -60,7 +53,7 @@ resource "aws_security_group" "cluster" {
   
   name_prefix = var.cluster_name
   description = "EKS cluster security group."
-  vpc_id      = var.vpc_idmodule.aws-vpc.vpc-id
+  vpc_id      = var.vpc-id #module.aws-vpc.vpc-id
   tags = merge(
     var.tags,
     {
