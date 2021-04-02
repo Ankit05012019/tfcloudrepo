@@ -45,7 +45,7 @@ variable "environment" {
 
 variable "eks_node_group_instance_types" {
 
-    type = list(string)
-    default = ["t3.medium"]
+    type = string
+    default = "t3.medium"
 
 }
