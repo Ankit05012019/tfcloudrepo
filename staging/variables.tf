@@ -133,3 +133,20 @@ variable "cluster_endpoint_public_access"  {
    default = true
 
 }
+
+variable "cluster_name2" {
+  
+     type = string 
+     default = "my-cluster-eks2"
+
+}
+
+variable "tags2" {
+
+     type = "map"
+     default = {
+
+         name = "my-cluster-eks2"
+     }
+
+}
