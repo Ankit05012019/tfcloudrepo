@@ -92,7 +92,7 @@ resource "aws_db_subnet_group" "db-subnet-group" {
 }
 
 module "db" {
-  enabled                        = true
+  
   source                         = "../modules/aws-rds"
   instance_name                  = "tw-${var.environment}"
   environment                    = var.environment
