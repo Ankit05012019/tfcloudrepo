@@ -48,7 +48,7 @@ resource "aws_db_instance" "db-instance" {
   monitoring_interval             = var.monitor_interval
   enabled_cloudwatch_logs_exports = var.enabled_cloudwatch_log_exports
 
-  tags {
+  tags = {
     Name        = var.instance_name
     Environment = var.environment
   }
