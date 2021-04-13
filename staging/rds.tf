@@ -84,7 +84,7 @@ resource "aws_db_parameter_group" "db-parameter-group" {
 
 resource "aws_db_subnet_group" "db-subnet-group" {
   name                          = var.db_subnet_group_name
-  subnet_ids                    = var.private_subnet_ids
+  subnet_ids                    = module.staging-vpc.db-subnet-ids
 
   tags = {
     Name = "${var.db_subnet_group_name}-db-subnet-group"
@@ -92,9 +92,9 @@ resource "aws_db_subnet_group" "db-subnet-group" {
 }
 
 module "db" {
-  enabled = true
+  enabled                        = true
   source                         = "../modules/aws-rds"
-  instance_name                  = "${var.environment}-tw"
+  instance_name                  = "tw-${var.environment}"
   environment                    = var.environment
   allocated_storage              = var.rds_allocated_storage
   engine                         = "postgres"
@@ -118,5 +118,5 @@ module "db" {
 #   route53_zone_id                = "${module.vpc.internal_route53_zone_id}"
 #   subdomain                      = "db"
   vpc_id                         = module.staging-vpc.vpc-id
-  cidr                           = var.cidr
+  cidr                           = module.staging-vpc.vpc-cidr
 }

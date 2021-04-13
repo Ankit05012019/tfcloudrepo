@@ -117,6 +117,7 @@ variable "tags2" {
 }
 
 ### RDS Modules
+
 variable "db_parameter_group" {
   type            = string
   default         = "tw-db-parameter-group"
@@ -124,12 +125,12 @@ variable "db_parameter_group" {
 
 variable "db_family" {
   type            = string
-  default         = "postgres9.6"
+  default         = "postgres13.2"
 }
 
 variable "db_subnet_group_name" {
   type            = string
-  default         = "tw-db-subnet_group"
+  default         = "tw-db-subnet-group"
 }
 
 variable "rds_allocated_storage" {
@@ -139,11 +140,11 @@ variable "rds_allocated_storage" {
 
 variable "rds_db_name" {
   type            = string
-  default         = "tw"
+  default         = "tw-staging-db"
 }
 variable "rds_engine_version" {
   type            = string
-  default         = "9.6.11"
+  default         = "13.2"
 }
 
 variable "rds_instance_class" {
