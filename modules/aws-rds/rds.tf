@@ -16,7 +16,7 @@ resource "aws_security_group" "db-security-group" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags {
+  tags = {
     Name = "${var.instance_name}-DB-SG"
   }
 }

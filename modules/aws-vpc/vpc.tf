@@ -122,7 +122,7 @@ resource "aws_route_table_association" "private-app" {
 
 /* Private Subnet DB */
 
-/*
+
 resource "aws_subnet" "private-subnet-db" {
 
   for_each          = var.private_subnets_db
@@ -168,7 +168,7 @@ resource "aws_route_table_association" "private-db" {
   route_table_id = aws_route_table.private-route-table-db[each.key].id
 
   depends_on = ["aws_subnet.private-subnet-db", "aws_route_table.private-route-table-db"]
-}*/
+}
 
 
 

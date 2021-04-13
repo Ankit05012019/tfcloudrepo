@@ -4,10 +4,10 @@
 
 output "db_name" {
   description   = "Address of RDS instance"
-  value         = aws_db_instance.main.*.name
+  value         = aws_db_instance.db-instance.name
 }
 
 output "db_port" {
   description   = "Port of the RDS instance"
-  value         = aws_db_instance.main.*.port
+  value         = aws_db_instance.db-instance.port
 }

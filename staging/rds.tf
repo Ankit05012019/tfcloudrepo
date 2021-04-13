@@ -92,7 +92,7 @@ resource "aws_db_subnet_group" "db-subnet-group" {
 }
 
 module "db" {
-  
+
   source                         = "../modules/aws-rds"
   instance_name                  = "tw-${var.environment}"
   environment                    = var.environment
@@ -114,7 +114,7 @@ module "db" {
   skip_final_snapshot            = false
   enabled_cloudwatch_log_exports = ["postgresql", "upgrade"]
   parameter_group_name           = aws_db_parameter_group.db-parameter-group.name
-  subnet_group_name              = aws_db_subnet_group.db_subnet_group_name.name
+  subnet_group_name              = aws_db_subnet_group.db-subnet-group.name
 #   route53_zone_id                = "${module.vpc.internal_route53_zone_id}"
 #   subdomain                      = "db"
   vpc_id                         = module.staging-vpc.vpc-id
