@@ -25,7 +25,7 @@ variable "instance_name" {
 
 variable "db_name" {
   description           = "Name of the database"
-  value                 = "tw"
+  default                 = ""
 }
 
 variable "enabled_cloudwatch_log_exports" {
