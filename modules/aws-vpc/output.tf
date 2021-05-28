@@ -11,3 +11,11 @@ output "private-subnet-ids" {
     for subnet in aws_subnet.private-subnet-app   : subnet.id
   ])
 }
+
+output "public-subnet-ids" {
+
+     value = toset([
+
+       for subnet in aws_subnet.public-subnet : subnet.id
+     ])
+}

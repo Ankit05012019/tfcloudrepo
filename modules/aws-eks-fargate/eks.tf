@@ -1,13 +1,16 @@
+
 resource "aws_eks_cluster" "eks-cluster" {
-  
-  name                      = var.cluster_name
-  role_arn                  = aws_iam_role.eks_cluster_role.arn
-  version                   = var.cluster_version
-  tags                      = var.tags
+
+  name     = var.cluster_name
+  role_arn = aws_iam_role.eks_cluster_role.arn
+  version  = var.cluster_version
+  tags     = var.tags
 
   vpc_config {
-    security_group_ids      = module.aws-vpc.vpc-idslks
-    subnet_ids              = module.aws-vpc.private-subnet-ids
+    security_group_ids      = ["${aws_security_group.cluster.id}"]
+    endpoint_private_access = var.cluster_endpoint_private_access
+    endpoint_public_access  = var.cluster_endpoint_public_access
+    subnet_ids              = var.private_subnet_ids #module.aws-vpc.private-subnet-ids
 
   }
 
@@ -20,7 +23,7 @@ resource "aws_eks_cluster" "eks-cluster" {
     aws_security_group_rule.cluster_egress_internet,
     aws_iam_role_policy_attachment.AmazonEKSClusterPolicy1,
     aws_iam_role_policy_attachment.AmazonEKSVPCResourceController1
-    
+
   ]
 }
 
@@ -31,16 +34,16 @@ resource "aws_security_group_rule" "cluster_private_access" {
   protocol    = "tcp"
   cidr_blocks = var.cluster_endpoint_private_access_cidrs
 
-  security_group_id = aws_eks_cluster.eks-cluster.vpc_config.cluster_security_group_id
+  security_group_id = aws_security_group.cluster.id
 }
 
 
 
 resource "aws_security_group" "cluster" {
-  
+
   name_prefix = var.cluster_name
   description = "EKS cluster security group."
-  vpc_id      = module.aws-vpc.vpc-id
+  vpc_id      = var.vpc_id #module.aws-vpc.vpc-id
   tags = merge(
     var.tags,
     {
@@ -61,10 +64,10 @@ resource "aws_security_group_rule" "cluster_egress_internet" {
 
 
 resource "aws_iam_role" "eks_cluster_role" {
-  name = "${var.cluster_name}-cluster-role"
-  description = "Allow cluster to manage node groups, fargate nodes and cloudwatch logs"
+  name                  = "${var.cluster_name}-cluster-role"
+  description           = "Allow cluster to manage node groups, fargate nodes and cloudwatch logs"
   force_detach_policies = true
-  assume_role_policy = <<POLICY
+  assume_role_policy    = <<POLICY
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -83,12 +86,62 @@ resource "aws_iam_role" "eks_cluster_role" {
 POLICY
 }
 
-resource "aws_iam_role_policy_attachment" "AmazonEKSClusterPolicy1"{
-policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
-role       = aws_iam_role.eks_cluster_role.name
+resource "aws_iam_role_policy_attachment" "AmazonEKSClusterPolicy1" {
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
+  role       = aws_iam_role.eks_cluster_role.name
 }
 
 resource "aws_iam_role_policy_attachment" "AmazonEKSVPCResourceController1" {
-policy_arn = "arn:aws:iam::aws:policy/AmazonEKSVPCResourceController"
-role       = aws_iam_role.eks_cluster_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSVPCResourceController"
+  role       = aws_iam_role.eks_cluster_role.name
 }
+
+
+/* Node group */
+
+/*
+resource "aws_eks_node_group" "eks-node-group" {
+  cluster_name    = aws_eks_cluster.eks-cluster.name
+  node_group_name = "${var.cluster_name}-${var.environment}-node_group"
+  node_role_arn   = aws_iam_role.eks-node-group-role.arn
+  subnet_ids      = var.private_subnet_ids
+
+  scaling_config {
+    desired_size = 2
+    max_size     = 3
+    min_size     = 2
+  }
+
+  instance_types = var.eks_node_group_instance_types
+}
+
+
+resource "aws_iam_role" "eks-node-group-role" {
+  name = "${var.cluster_name}-node-group_role"
+
+  assume_role_policy = jsonencode({
+    Statement = [{
+      Action = "sts:AssumeRole"
+      Effect = "Allow"
+      Principal = {
+        Service = "ec2.amazonaws.com"
+      }
+    }]
+    Version = "2012-10-17"
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "AmazonEKSWorkerNodePolicy" {
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
+  role       = aws_iam_role.eks-node-group-role.name
+}
+
+resource "aws_iam_role_policy_attachment" "AmazonEKS_CNI_Policy" {
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
+  role       = aws_iam_role.eks-node-group-role.name
+}
+
+resource "aws_iam_role_policy_attachment" "AmazonEC2ContainerRegistryReadOnly" {
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
+  role       = aws_iam_role.eks-node-group-role.name
+}*/

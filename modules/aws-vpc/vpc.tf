@@ -1,3 +1,9 @@
+locals {
+  eks_public_subnet_tags  = var.cluster_name != "" ? { "kubernetes.io/cluster/${var.cluster_name}" : "shared", "kubernetes.io/role/elb" : "1" } : {}
+  eks_private_subnet_tags = var.cluster_name != "" ? { "kubernetes.io/cluster/${var.cluster_name}" : "shared", "kubernetes.io/role/internal-elb" : "1" } : {}
+}
+
+
 resource "aws_vpc" "th-vpc" {
   cidr_block           = var.cidr
   enable_dns_hostnames = var.enable_dns_hostnames
@@ -34,11 +40,14 @@ resource "aws_subnet" "public-subnet" {
    map_public_ip_on_launch = true
 
 
-
-  tags = {
-    Name        = "${each.key}-public"
+   tags = merge(
+   
+    local.eks_public_subnet_tags,
+    {
+    Name        = "${var.name}-${each.key}-public"
     environment = var.environment
-  }
+  })
+  
 
   depends_on = ["aws_vpc.th-vpc"]
 }
@@ -82,10 +91,12 @@ resource "aws_subnet" "private-subnet-app" {
   map_public_ip_on_launch = true
 
 
-  tags = {
-    Name            = "${each.key}-private-app"
-    environment     = "${var.environment}"
-  }
+  tags = merge(
+     local.eks_private_subnet_tags,
+    {
+    Name        = "${var.name}-${each.key}-private-app"
+    environment = "${var.environment}"
+  })
 
   depends_on = ["aws_vpc.th-vpc"]
 }
