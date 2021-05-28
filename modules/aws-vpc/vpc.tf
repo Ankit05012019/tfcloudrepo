@@ -189,15 +189,16 @@ resource "aws_route_table_association" "private-db" {
 
 resource "aws_eip" "aws-eip" {
   
-  for_each       =  var.public_subnets
+  #for_each       =  var.public_subnets
   vpc            =  true
 }
 
 resource "aws_nat_gateway" "nat" {
-  #count         = "${length(var.public_subnets)}"
-  for_each      =  var.public_subnets 
-  allocation_id =  aws_eip.aws-eip[each.key].id
-  subnet_id     =  aws_subnet.public-subnet[each.key].id
-  depends_on    = ["aws_subnet.public-subnet"]
+  #for_each      = var.public_subnets
+  #allocation_id = aws_eip.aws-eip[each.key].id
+  allocation_id  = aws_eip.aws-eip.id 
+  #subnet_id     = aws_subnet.public-subnet[each.key].id
+  subnet_id      = element(tolist([for subnet in aws_subnet.public-subnet : subnet.id]),0) 
+  depends_on     = ["aws_subnet.public-subnet"]
 }
 
