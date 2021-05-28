@@ -11,25 +11,23 @@ data "aws_iam_policy_document" "assume-role" {
 }
 
 resource "aws_iam_role" "pod-execustion-role" {
-  for_each           = toset(var.namespaces)
-  name               = format("tw-%s-fargate-%s", var.cluster_name, each.value)
+  for_each            = toset(var.namespaces)
+  name                = format("tw-%s-fargate-%s", var.cluster_name, each.value)
   #assume_role_policy = data.aws_iam_policy_document.assume-role.json
-  assume_role_policy    = <<POLICY
-  {
-    "Version": "2012-10-17",
-    "Statement": [
-      {
-        "Effect": "Allow",
-        "Principal": {
-          "Service": [
-            "eks-fargate-pods.amazonaws.com"
-            ]
-            },
-            "Action": "sts:AssumeRole"
-          }
-        ]
-      }
-POLICY
+  assume_role_policy  = <<POLICY
+    {
+  	"Version": "2012-10-17",
+  	"Statement": [{
+  		"Effect": "Allow",
+  		"Principal": {
+  			"Service": [
+  				"eks-fargate-pods.amazonaws.com"
+  			]
+  		},
+  		"Action": "sts:AssumeRole"
+  	}]
+  }
+  POLICY
   tags = merge(var.tags,
     { Namespace = each.value },
     { "kubernetes.io/cluster/${var.cluster_name}" = "owned" },
