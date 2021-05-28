@@ -15,7 +15,7 @@ resource "aws_iam_role" "pod-execustion-role" {
   name                = format("tw-%s-fargate-%s", var.cluster_name, each.value)
   #assume_role_policy = data.aws_iam_policy_document.assume-role.json
   assume_role_policy  = <<POLICY
-  {
+{
     "Version": "2012-10-17",
     "Statement": [
       {"Effect": "Allow",
