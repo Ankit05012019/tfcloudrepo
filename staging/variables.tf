@@ -8,7 +8,7 @@ variable "name" {
 variable "environment" {
 
     type = string 
-    default = "staging"
+    default = "eks-test"
 }
 
 variable "cidr" {
@@ -23,22 +23,22 @@ variable "public_subnets" {
   type        = "map"
   default     = {
     
-    us-east-1a = "192.168.1.0/24",
-    us-east-1b = "192.168.2.0/24",
-    us-east-1c = "192.168.3.0/24"
+    us-east-1a = "192.168.16.0/20",
+    us-east-1b = "192.168.32.0/20",
+    us-east-1c = "192.168.48.0/20"  
 
   }
 }
 
 variable "enable_dns_hostnames" {
   description = "Should be true if you want to use private DNS within the VPC"
-  default     = false
+  default     = true
 }
 
 
 variable "enable_dns_support" {
   description = "Should be true if you want to use private DNS within the VPC"
-  default     = false
+  default     = true
 }
 
 variable "private_subnets_app" {
@@ -46,9 +46,9 @@ variable "private_subnets_app" {
   type        = "map"
   default     = {
 
-    us-east-1a = "192.168.4.0/24",
-    us-east-1b = "192.168.5.0/24",
-    us-east-1c = "192.168.6.0/24"
+    us-east-1a = "192.168.128.0/20",
+    us-east-1b = "192.168.64.0/20",
+    us-east-1c = "192.168.96.0/20"
 
   }
 }
@@ -71,4 +71,67 @@ variable "private_subnets_db" {
 }*/
 
 
+/*EKS variables */
 
+
+variable "cluster_name" {
+  type    = string
+  default = "tf-test-cluster"
+}
+
+variable "cluster_version" {
+  type    = number
+  default = 1.18
+}
+
+variable "cluster_service_ipv4_cidr" {
+  type    = string
+  default = "172.20.0.0/16"
+}
+
+variable "cluster_endpoint_private_access_cidrs" {
+  type    = list(any)
+  default = ["0.0.0.0/0"]
+}
+
+variable "eks_node_group_instance_types" {
+  type    = list(string)
+  default = ["t3.medium"]
+}
+
+variable "cluster_endpoint_private_access" {
+  type    = bool
+  default = true
+}
+
+variable "cluster_endpoint_public_access" {
+  type    = bool
+  default = false 
+}
+
+variable "environment" {
+  type    = string
+  default = "test"
+}
+
+variable "namespaces" {
+  type    = set(string)
+  default = ["fargate"]
+}
+variable "private_subnet_ids" {
+  type    = set(string)
+  default = []
+}
+
+variable "tags" {
+  type = map(string)
+  default = {
+    name = "tf-test-cluster"
+  }
+
+}
+
+variable "vpc_id" {
+  type    = string
+  default = ""
+} 
