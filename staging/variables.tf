@@ -109,10 +109,6 @@ variable "cluster_endpoint_public_access" {
   default = false 
 }
 
-variable "environment" {
-  type    = string
-  default = "test"
-}
 
 variable "namespaces" {
   type    = set(string)
