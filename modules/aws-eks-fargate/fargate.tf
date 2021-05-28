@@ -22,7 +22,7 @@ resource "aws_iam_role" "pod-execustion-role" {
         "Effect": "Allow",
         "Principal": {
           "Service": [
-            "eks-fargate-pods.amazonaws.com",
+            "eks-fargate-pods.amazonaws.com"
             ]
         },
         "Action": "sts:AssumeRole"
