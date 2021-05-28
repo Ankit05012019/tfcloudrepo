@@ -17,9 +17,9 @@ variable "public_subnets" {
   type        = "map"
   default     = {
     
-    us-east-1a = "192.168.1.0/24",
-    us-east-1b = "192.168.2.0/24",
-    us-east-1c = "192.168.3.0/24"
+    us-east-1a = "192.168.16.0/20",
+    us-east-1b = "192.168.32.0/20",
+    us-east-1c = "192.168.48.0/20"
 
   }
 }
@@ -67,6 +67,10 @@ variable "private_subnets_db" {
   }
 }
 
+variable "cluster_name" {
+  type    = string
+  default = ""
+}
 
 
 
