@@ -13,8 +13,8 @@ data "aws_iam_policy_document" "assume-role" {
 resource "aws_iam_role" "pod-execustion-role" {
   for_each            = toset(var.namespaces)
   name                = format("tw-%s-fargate-%s", var.cluster_name, each.value)
-  #assume_role_policy = data.aws_iam_policy_document.assume-role.json
-  assume_role_policy  = <<POLICY
+  assume_role_policy = data.aws_iam_policy_document.assume-role.json
+  /*assume_role_policy  = <<POLICY
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -26,7 +26,7 @@ resource "aws_iam_role" "pod-execustion-role" {
       }
     ]
   }
-POLICY
+POLICY*/
 
   tags = merge(var.tags,
     { Namespace = each.value },
