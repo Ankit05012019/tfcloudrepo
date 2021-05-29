@@ -104,13 +104,30 @@ resource "aws_eks_node_group" "eks-node-group" {
   cluster_name    = aws_eks_cluster.eks-cluster.name
   node_group_name = "${var.cluster_name}-${var.environment}-node_group"
   node_role_arn   = aws_iam_role.eks-node-group-role.arn
+  subnet_ids      = var.private_subnet_ids
+
+  scaling_config {
+    desired_size = 1
+    max_size     = 2
+    min_size     = 1
+  }
+
+  instance_types = var.eks_node_group_instance_types
+}
+
+
+
+resource "aws_eks_node_group" "eks-node-group-spot" {
+  cluster_name    = aws_eks_cluster.eks-cluster.name
+  node_group_name = "${var.cluster_name}-${var.environment}-node_group"
+  node_role_arn   = aws_iam_role.eks-node-group-role.arn
   capacity_type   = "SPOT"
   subnet_ids      = var.private_subnet_ids
 
   scaling_config {
-    desired_size = 2
-    max_size     = 3
-    min_size     = 2
+    desired_size = 1
+    max_size     = 2
+    min_size     = 1
   }
 
   instance_types = var.eks_node_group_instance_types
