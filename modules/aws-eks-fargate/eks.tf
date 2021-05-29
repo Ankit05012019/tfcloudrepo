@@ -119,7 +119,7 @@ resource "aws_eks_node_group" "eks-node-group" {
 
 resource "aws_eks_node_group" "eks-node-group-spot" {
   cluster_name    = aws_eks_cluster.eks-cluster.name
-  node_group_name = "${var.cluster_name}-${var.environment}-node_group"
+  node_group_name = "${var.cluster_name}-${var.environment}-spot_node_group"
   node_role_arn   = aws_iam_role.eks-node-group-role.arn
   capacity_type   = "SPOT"
   subnet_ids      = var.private_subnet_ids
