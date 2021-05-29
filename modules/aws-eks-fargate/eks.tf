@@ -102,7 +102,7 @@ resource "aws_iam_role_policy_attachment" "AmazonEKSVPCResourceController1" {
 
 resource "aws_eks_node_group" "eks-node-group" {
   cluster_name    = aws_eks_cluster.eks-cluster.name
-  node_group_name = "${var.cluster_name}-${var.environment}-node_group"
+  node_group_name = "${var.cluster_name}-${var.environment}-ondemand_node_group"
   node_role_arn   = aws_iam_role.eks-node-group-role.arn
   subnet_ids      = var.private_subnet_ids
 
