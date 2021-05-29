@@ -18,6 +18,23 @@ resource "aws_eks_cluster" "eks-cluster" {
     service_ipv4_cidr = var.cluster_service_ipv4_cidr
   }
 
+  worker_groups = [
+    {
+      name                = "on-demand-1"
+      instance_type       = "t2.medium"
+      asg_max_size        = 1
+      kubelet_extra_args  = "--node-labels=node.kubernetes.io/lifecycle=normal"
+      suspended_processes = ["AZRebalance"]
+    },
+    {
+      name                = "spot-1"
+      spot_price          = "0.042"
+      instance_type       = "t3.medium"
+      asg_max_size        = 3
+      kubelet_extra_args  = "--node-labels=node.kubernetes.io/lifecycle=spot"
+      suspended_processes = ["AZRebalance"]
+    }
+  ]
 
   depends_on = [
     aws_security_group_rule.cluster_egress_internet,
@@ -99,7 +116,7 @@ resource "aws_iam_role_policy_attachment" "AmazonEKSVPCResourceController1" {
 
 /* Node group */
 
-
+/*
 resource "aws_eks_node_group" "eks-node-group" {
   cluster_name    = aws_eks_cluster.eks-cluster.name
   node_group_name = "${var.cluster_name}-${var.environment}-ondemand_node_group"
@@ -162,4 +179,4 @@ resource "aws_iam_role_policy_attachment" "AmazonEKS_CNI_Policy" {
 resource "aws_iam_role_policy_attachment" "AmazonEC2ContainerRegistryReadOnly" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
   role       = aws_iam_role.eks-node-group-role.name
-}
+}*/
