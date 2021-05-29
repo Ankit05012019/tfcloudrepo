@@ -18,7 +18,7 @@ resource "aws_eks_cluster" "eks-cluster" {
     service_ipv4_cidr = var.cluster_service_ipv4_cidr
   }
 
-  worker_groups = [
+  /*worker_groups = [
     {
       name                = "on-demand-1"
       instance_type       = "t2.medium"
@@ -34,7 +34,7 @@ resource "aws_eks_cluster" "eks-cluster" {
       kubelet_extra_args  = "--node-labels=node.kubernetes.io/lifecycle=spot"
       suspended_processes = ["AZRebalance"]
     }
-  ]
+  ]*/
 
   depends_on = [
     aws_security_group_rule.cluster_egress_internet,
