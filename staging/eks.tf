@@ -17,5 +17,8 @@ module "eks" {
   spot_node_group_desired               = var.spot_node_group_desired
   spot_node_group_max_size              = var.spot_node_group_max_size
   spot_node_group_min_size              = var.spot_node_group_min_size
+  node_group_desired                    = var.node_group_desired
+  node_group_max_size                   = var.node_group_max_size
+  node_group_min_size                   = var.node_group_min_size
 
 }
