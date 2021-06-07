@@ -12,4 +12,5 @@ module "eks" {
   cluster_endpoint_private_access       = var.cluster_endpoint_private_access
   cluster_endpoint_public_access        = var.cluster_endpoint_public_access
   namespaces                            = var.namespaces
+  enable_spot_instances                 = var.enable_spot_instances 
 }

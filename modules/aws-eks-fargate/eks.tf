@@ -116,7 +116,7 @@ resource "aws_iam_role_policy_attachment" "AmazonEKSVPCResourceController1" {
 
 /* Node group */
 
-/*
+
 resource "aws_eks_node_group" "eks-node-group" {
   cluster_name    = aws_eks_cluster.eks-cluster.name
   node_group_name = "${var.cluster_name}-${var.environment}-ondemand_node_group"
@@ -135,6 +135,8 @@ resource "aws_eks_node_group" "eks-node-group" {
 
 
 resource "aws_eks_node_group" "eks-node-group-spot" {
+
+  count           = $var.enable_spot_instance == true ? 1 : 0
   cluster_name    = aws_eks_cluster.eks-cluster.name
   node_group_name = "${var.cluster_name}-${var.environment}-spot_node_group"
   node_role_arn   = aws_iam_role.eks-node-group-role.arn
@@ -179,4 +181,4 @@ resource "aws_iam_role_policy_attachment" "AmazonEKS_CNI_Policy" {
 resource "aws_iam_role_policy_attachment" "AmazonEC2ContainerRegistryReadOnly" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
   role       = aws_iam_role.eks-node-group-role.name
-}*/
+}
