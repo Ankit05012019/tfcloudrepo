@@ -146,7 +146,7 @@ resource "aws_eks_node_group" "eks-node-group-spot" {
   scaling_config {
     desired_size = var.spot_node_group_desired
     max_size     = var.spot_node_group_max_size
-    min_size     = var.spot_node_group_min_soze
+    min_size     = var.spot_node_group_min_size
   }
 
   instance_types = var.eks_spot_node_group_instance_types
