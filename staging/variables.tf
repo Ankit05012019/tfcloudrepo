@@ -135,7 +135,7 @@ variable "vpc_id" {
 variable "enable_spot_instances" {
 
   type = bool
-  default = false
+  default = true
 
 }
 
