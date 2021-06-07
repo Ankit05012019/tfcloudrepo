@@ -132,9 +132,9 @@ variable "vpc_id" {
   default = ""
 } 
 
-variable "enable_spot_instance" {
+variable "enable_spot_instances" {
 
   type = bool
   default = false
-  
+
 }
