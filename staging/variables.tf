@@ -136,4 +136,5 @@ variable "enable_spot_instance" {
 
   type = bool
   default = false
+  
 }

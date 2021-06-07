@@ -59,3 +59,9 @@ variable "vpc_id" {
   type    = string
   default = ""
 } 
+
+variable "enable_spot_instance" {
+
+  type = bool
+  default = false
+}
