@@ -144,12 +144,12 @@ resource "aws_eks_node_group" "eks-node-group-spot" {
   subnet_ids      = var.private_subnet_ids
 
   scaling_config {
-    desired_size = 1
-    max_size     = 2
-    min_size     = 1
+    desired_size = var.spot_node_group_desired
+    max_size     = var.spot_node_group_max_size
+    min_size     = var.spot_node_group_min_soze
   }
 
-  instance_types = var.eks_node_group_instance_types
+  instance_types = var.eks_spot_node_group_instance_types
 }
 
 

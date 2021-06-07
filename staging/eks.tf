@@ -13,4 +13,9 @@ module "eks" {
   cluster_endpoint_public_access        = var.cluster_endpoint_public_access
   namespaces                            = var.namespaces
   enable_spot_instances                 = var.enable_spot_instances 
+  eks_spot_node_group_instance_types    = var.eks_spot_node_group_instance_types
+  spot_node_group_desired               = var.spot_node_group_desired
+  spot_node_group_max_size              = var.spot_node_group_max_size
+  spot_node_group_min_size              = var.spot_node_group_min_size
+
 }

@@ -65,3 +65,28 @@ variable "enable_spot_instances" {
   type = bool
   default = false
 }
+
+variable "eks_spot_node_group_instance_types" {
+  type    = list(string)
+  default = ["t3.medium","t2.medium"]
+}
+
+variable "spot_node_group_desired" {
+
+  type = number
+  default = 1
+
+}
+
+variable "spot_node_group_max_size" {
+
+  type = number
+  default = 2
+  
+}
+ variable "spot_node_group_min_size" {
+
+  type = number
+  default = 1
+  
+}
