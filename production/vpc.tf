@@ -27,7 +27,7 @@ data "terraform_remote_state" "test" {
 }
 
 resource "aws_vpc_peering_connection" "test-peering" {
-  peer_owner_id = var.peer_owner_id
+  
   peer_vpc_id   = data.terraform_remote_state.test.outputs.module.staging-vpc.vpc-id
   vpc_id        = module.prod-vpc.vpc-id
   peer_region   = "us-east-1"
