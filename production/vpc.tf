@@ -15,12 +15,12 @@ module "prod-vpc" {
 }
 
 
-data "terraform_remote_state" "vpc" {
+data "terraform_remote_state" "test" {
     backend = "remote"
-    config {
+    config = {
       organization = "scaleworx"
       workspaces {
-      prefix = "tw-"
+      name = "test-eks-spot"
     }
 
     }
@@ -28,7 +28,7 @@ data "terraform_remote_state" "vpc" {
 
 resource "aws_vpc_peering_connection" "test-peering" {
   peer_owner_id = var.peer_owner_id
-  peer_vpc_id   = terraform_remote_state.vpc.module.staging-vpc.vpc-id
+  peer_vpc_id   = terraform_remote_state.test.module.staging-vpc.vpc-id
   vpc_id        = module.prod-vpc.vpc-id
   peer_region   = "us-east-1"
 
