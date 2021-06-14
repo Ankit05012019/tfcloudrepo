@@ -10,7 +10,7 @@ module "staging-vpc" {
   private_subnets_app  = var.private_subnets_app
   enable_dns_hostnames = var.enable_dns_hostnames
   enable_dns_support   = var.enable_dns_support
-  cluster_name         = var.cluster_name
+  cluster_name         = "test_cluster"
 
 
 
