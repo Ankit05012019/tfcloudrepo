@@ -73,7 +73,7 @@ variable "private_subnets_db" {
 
 /*EKS variables */
 
-
+/*
 variable "cluster_name" {
   type    = string
   default = "tf-test-cluster"
@@ -184,3 +184,4 @@ variable "node_group_max_size" {
   default = 1
   
 }
+*/

@@ -1,4 +1,4 @@
-module "eks" {
+/*module "eks" {
 
   source                                = "../modules/aws-eks-fargate"
   cluster_name                          = var.cluster_name
@@ -21,4 +21,4 @@ module "eks" {
   node_group_max_size                   = var.node_group_max_size
   node_group_min_size                   = var.node_group_min_size
 
-}
+}*/
