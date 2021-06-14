@@ -37,5 +37,5 @@ resource "aws_vpc_peering_connection" "test-peering" {
 
 output "test" {
 
-  value = data.terraform_remote_state.test.outputs.vpc-id
+  value = data.terraform_remote_state.test.outputs.staging-vpc-id
 }
