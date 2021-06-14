@@ -26,11 +26,16 @@ data "terraform_remote_state" "test" {
     }
 }
 
-resource "aws_vpc_peering_connection" "test-peering" {
+/*resource "aws_vpc_peering_connection" "test-peering" {
   
   peer_vpc_id   = data.terraform_remote_state.test.outputs.aws-vpc.vpc-id
   vpc_id        = module.prod-vpc.vpc-id
   peer_region   = "us-east-1"
 
   depends_on  = []
+}*/
+
+output "test" {
+
+  value = data.terraform_remote_state.test.outputs
 }
