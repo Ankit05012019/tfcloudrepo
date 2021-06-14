@@ -19,7 +19,7 @@ data "terraform_remote_state" "test" {
     backend = "remote"
     config = {
       organization = "scaleworx"
-      workspaces {
+      workspaces = {
       name = "test-eks-spot"
     }
 
